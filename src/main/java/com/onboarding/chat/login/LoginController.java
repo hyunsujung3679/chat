@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
 
     @GetMapping(value = {"/", "/login"})
-    public String loginForm(@ModelAttribute String username) {
+    public String loginForm(@ModelAttribute  username) {
         return "login/loginForm";
     }
 
