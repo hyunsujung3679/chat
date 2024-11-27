@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <link rel="stylesheet" th:href="@{/css/chat/chatRoomList.css}">
+</head>
+<body>
+<div class="container">
+    <!-- 상단 헤더 -->
+    <div class="header-container">
+        <!-- 왼쪽 영역 -->
+        <div class="header-left">
+            <div class="logo-box">
+                <a href="javascript:location.reload();">
+                    <img th:src="@{/images/logo.png}" alt="logo.png">
+                </a>
+            </div>
+            <div class="nickname-box">
+                <span>별명: </span>
+                <span th:text="${nickname}">사용자</span>
+            </div>
+        </div>
+
+        <!-- 오른쪽 영역 -->
+        <div class="header-right">
+            <button class="header-btn" onclick="openModal()">채팅방 만들기</button>
+            <button class="header-btn" onclick="window.location.href='/login'">나가기</button>
+        </div>
+    </div>
+
+    <!-- 채팅방 목록 -->
+    <div class="room-list">
+        <table>
+            <thead>
+            <tr>
+                <th class="title-col">제목</th>
+                <th class="owner-col">방장</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="room : ${chatRoomList}">
+                <td class="title-cell">
+                    <a th:href="@{/chatroom/{roomNo}(roomNo=${room.roomNo})}"
+                       th:text="${room.title}"></a>
+                </td>
+                <td class="owner-cell" th:text="${room.insertNickname}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 페이징 -->
+    <div class="pagination">
+        <a class="page-link first-last" th:href="@{/chatroom/list(page=0, size=${size}, nickname=${nickname})}">
+            <img th:src="@{/images/first.png}" alt="처음으로">
+        </a>
+        <a class="page-link" th:href="@{/chatroom/list(page=${currentPage - 1}, size=${size}, nickname=${nickname})}"
+           th:if="${currentPage > 0}">
+            <img th:src="@{/images/prev.png}" alt="이전">
+        </a>
+        <span class="current-page" th:text="${currentPage + 1}">1</span>
+        <a class="page-link" th:href="@{/chatroom/list(page=${currentPage + 1}, size=${size}, nickname=${nickname})}"
+           th:if="${currentPage < totalPages - 1}">
+            <img th:src="@{/images/next.png}" alt="다음">
+        </a>
+        <a class="page-link first-last" th:href="@{/chatroom/list(page=${totalPages - 1}, size=${size}, nickname=${nickname})}">
+            <img th:src="@{/images/last.png}" alt="마지막으로">
+        </a>
+    </div>
+
+    <!-- 모달 팝업 -->
+    <div id="createRoomModal" class="modal">
+        <div class="modal-content">
+            <h2>채팅방 만들기</h2>
+            <div class="input-group">
+                <input type="text" id="roomTitle" placeholder="채팅방 제목을 입력하세요">
+            </div>
+            <div class="modal-buttons">
+                <button onclick="createRoom()" class="confirm-btn">확인</button>
+                <button onclick="closeModal()" class="cancel-btn">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        document.getElementById('createRoomModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('createRoomModal').style.display = 'none';
+        document.getElementById('roomTitle').value = '';
+    }
+
+    function createRoom() {
+        const title = document.getElementById('roomTitle').value;
+        if (!title.trim()) {
+            alert('제목을 입력해주세요.');
+            return;
+        }
+        closeModal();
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('createRoomModal');
+        if (event.target === modal) {
+            closeModal();
+        }
+    }
+</script>
+</body>
+</html>
