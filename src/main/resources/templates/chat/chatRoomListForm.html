@@ -41,7 +41,7 @@
             <tbody>
             <tr th:each="room : ${chatRoomList}">
                 <td class="title-cell">
-                    <a th:href="@{/chatroom/{roomNo}(roomNo=${room.roomNo})}"
+                    <a th:href="@{/chatroom/{roomNo}(roomNo=${room.roomNo}, nickname=${nickname})}"
                        th:text="${room.title}"></a>
                 </td>
                 <td class="owner-cell" th:text="${room.insertNickname}"></td>
@@ -53,19 +53,19 @@
     <!-- 페이징 -->
     <div class="pagination">
         <a class="page-link first-last" th:href="@{/chatroom/list(page=0, size=${size}, nickname=${nickname})}">
-            <img th:src="@{/images/first.png}" alt="처음으로">
+            &lt;&lt;
         </a>
         <a class="page-link" th:href="@{/chatroom/list(page=${currentPage - 1}, size=${size}, nickname=${nickname})}"
            th:if="${currentPage > 0}">
-            <img th:src="@{/images/prev.png}" alt="이전">
+            &lt;
         </a>
         <span class="current-page" th:text="${currentPage + 1}">1</span>
         <a class="page-link" th:href="@{/chatroom/list(page=${currentPage + 1}, size=${size}, nickname=${nickname})}"
            th:if="${currentPage < totalPages - 1}">
-            <img th:src="@{/images/next.png}" alt="다음">
+            &gt;
         </a>
         <a class="page-link first-last" th:href="@{/chatroom/list(page=${totalPages - 1}, size=${size}, nickname=${nickname})}">
-            <img th:src="@{/images/last.png}" alt="마지막으로">
+            &gt;&gt;
         </a>
     </div>
 
@@ -100,6 +100,33 @@
             alert('제목을 입력해주세요.');
             return;
         }
+
+        const nickname = document.querySelector('.nickname-box span:last-child').textContent;
+
+        // 서버로 전송할 데이터 준비
+        const data = {
+            title: title,
+            nickname: nickname
+        };
+
+        // POST 요청 보내기
+        fetch('/chatroom', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(response => {
+                const roomNo = response.data.chatRoomDto.roomNo;
+                window.location.href = `/chatroom/${roomNo}?nickname=${encodeURIComponent(nickname)}`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('채팅방 생성 중 오류가 발생했습니다.');
+            });
+
         closeModal();
     }
 

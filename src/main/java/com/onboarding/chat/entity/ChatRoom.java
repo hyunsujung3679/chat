@@ -37,6 +37,11 @@ public class ChatRoom implements Persistable<Long> {
     @Comment("생성일자")
     private LocalDateTime insertDate;
 
+    public ChatRoom(String title, String insertNickname) {
+        this.title = title;
+        this.insertNickname = insertNickname;
+    }
+
     @PrePersist
     public void prePersist() {
         insertDate = LocalDateTime.now();

@@ -1,0 +1,163 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    background-color: #B2CCFF;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+}
+
+/* 헤더 영역 */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.header-left {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.logo-box, .nickname-box, .header-btn {
+    background-color: white;
+    border-radius: 10px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.logo-box img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.logo-box a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nickname-box span {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.header-right {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.header-btn {
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    min-width: 120px;
+}
+
+/* 제목 영역 */
+.title-section {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 15px;
+}
+
+/* 채팅 영역 */
+.chat-section {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    height: calc(50vh - 100px);
+    overflow-y: auto;
+}
+
+.system-message {
+    text-align: center;
+    color: #666;
+    margin: 10px 0;
+}
+
+.chat-message {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 15px 0;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-icon {
+    width: 30px;
+    height: 30px;
+}
+
+.message {
+    background: #f0f0f0;
+    padding: 8px 15px;
+    border-radius: 15px;
+    display: inline-block;
+    margin-left: 38px;
+}
+
+/* 입력 영역 */
+.input-section {
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.input-section input {
+    flex: 1;
+    padding: 8px 15px;
+    border: none;
+    background: #f5f5f5;
+    border-radius: 20px;
+    outline: none;
+}
+
+.send-btn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.send-btn img {
+    width: 30px;
+    height: 30px;
+}
